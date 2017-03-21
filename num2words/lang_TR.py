@@ -18,17 +18,17 @@
 from __future__ import unicode_literals, print_function
 from .lang_EU import Num2Word_EU
 
-class Num2Word_DE(Num2Word_EU):
+class Num2Word_TR(Num2Word_EU):
     def set_high_numwords(self, high):
         max = 3 + 6*len(high)
 
         for word, n in zip(high, range(max, 3, -6)):
-            self.cards[10**n] = word + "illiarde"
-            self.cards[10**(n-3)] = word + "illion"
+            self.cards[10**n] = word + "ilyar"
+            self.cards[10**(n-3)] = word + "ilyon"
 
     def setup(self):
-        self.negword = "minus "
-        self.pointword = "Komma"
+        self.negword = "eksi "
+        self.pointword = "virgül"
         self.errmsg_floatord = "Die Gleitkommazahl %s kann nicht in eine Ordnungszahl konvertiert werden." # "Cannot treat float %s as ordinal."
         self.errmsg_nonnum = "Nur Zahlen (type(%s)) können in Wörter konvertiert werden." # "type(((type(%s)) ) not in [long, int, float]"
         self.errmsg_negord = "Die negative Zahl %s kann nicht in eine Ordnungszahl konvertiert werden." # "Cannot treat negative num %s as ordinal."
@@ -41,14 +41,14 @@ class Num2Word_DE(Num2Word_EU):
         tens = ["dez", "vigint", "trigint", "quadragint", "quinquagint",
                 "sexagint", "septuagint", "oktogint", "nonagint"]
         self.high_numwords = ["zent"]+self.gen_high_numwords(units, tens, lows)
-        self.mid_numwords = [(1000, "tausend"), (100, "hundert"),
-                             (90, "neunzig"), (80, "achtzig"), (70, "siebzig"),
-                             (60, "sechzig"), (50, "f\xFCnfzig"), (40, "vierzig"),
-                             (30, "drei\xDFig")]
-        self.low_numwords = ["zwanzig", "neunzehn", "achtzehn", "siebzehn",
-                             "sechzehn", "f\xFCnfzehn", "vierzehn", "dreizehn",
-                             "zw\xF6lf", "elf", "zehn", "neun", "acht", "sieben",
-                             "sechs", "f\xFCnf", "vier", "drei", "zwei", "eins",
+        self.mid_numwords = [(1000, "bin"), (100, "yüz"),
+                             (90, "doksan"), (80, "seksen"), (70, "yetmiş"),
+                             (60, "altmış"), (50, "elli"), (40, "kırk"),
+                             (30, "otuz")]
+        self.low_numwords = ["yirmi", "ondokuz", "onsekiz", "onyedi",
+                             "onaltı", "onbeş", "ondört", "onüç",
+                             "oniki", "onbir", "on", "dokuz", "sekiz", "yedi",
+                             "altı", "beş", "dört", "üç", "iki", "bir",
                              "null"]
         self.ords = {"eins": "ers",
                      "drei": "drit",
@@ -68,7 +68,7 @@ class Num2Word_DE(Num2Word_EU):
         if cnum == 1:
             if nnum < 10**6:
                 return next
-            ctext = "eine"
+            ctext = "bir"
 
         if nnum > cnum:
             if nnum >= 10**6:
@@ -108,15 +108,15 @@ class Num2Word_DE(Num2Word_EU):
         if old:
             return self.to_splitnum(val, hightxt="mark/s", lowtxt="pfennig/e",
                                     jointxt="und",longval=longval)
-        return super(Num2Word_DE, self).to_currency(val, jointxt="und",
+        return super(Num2Word_TR, self).to_currency(val, jointxt="und",
                                                     longval=longval)
 
     def to_year(self, val, longval=True):
         if not (val//100)%10:
             return self.to_cardinal(val)
-        return self.to_splitnum(val, hightxt="hundert", longval=longval)
+        return self.to_splitnum(val, hightxt="yüzde", longval=longval)
 
-n2w = Num2Word_DE()
+n2w = Num2Word_TR()
 to_card = n2w.to_cardinal
 to_ord = n2w.to_ordinal
 to_ordnum = n2w.to_ordinal_num
